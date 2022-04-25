@@ -44,6 +44,9 @@
   line-height: 1.15;
   font-size: 4rem;
 }
+.container {
+  color: red;
+}
 
 .title,
 .description {
