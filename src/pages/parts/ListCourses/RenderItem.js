@@ -9,7 +9,7 @@ export default function RenderItem({ item }) {
         <figure className="item-image px-0">
           <IconPlay></IconPlay>
           <img
-            src={`http://${item?.thumbnail ?? ""}`}
+            src={item?.thumbnail ?? ""}
             alt={item?.name ?? "some information"}
             width="100%"
             height="100%"
@@ -22,7 +22,9 @@ export default function RenderItem({ item }) {
           <h5 className="text-sm text-gray-600">
             {item?.level ?? "Course level"}
           </h5>
-          <Link href="/courses/{slug}" as={`/courses/${item.id}`}><a className="link-wrapped"></a></Link>
+          <Link href="/courses/[id]" as={`/courses/${item.id}`}>
+            <a className="link-wrapped"></a>
+          </Link>
         </div>
       </div>
     </div>
