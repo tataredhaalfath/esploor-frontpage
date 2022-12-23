@@ -39,13 +39,13 @@ export default function Hero() {
           ></div>
           <div className="absolute w-full h-full -mb-8 -ml-8">
             <img
-              src="/images/img-hero-mbak-alyssa-cakep.jpg"
+              src="/images/img-hero-front.png"
               alt="Hero Image"
             />
           </div>
           <div
-            className="absolute z-10 bg-white py-3 px-4 mt-24"
-            style={{ transform: "translateX(-50%)", width: 290 }}
+            className="absolute z-10 bg-white py-3 px-4"
+            style={{ transform: "translateX(-50%)", width: 290, bottom: 75 }}
           >
             <p className="text-gray-900 mb-2">
               Metode belajar yang santai seperti nonton drakor di Netflix

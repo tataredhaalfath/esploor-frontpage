@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import DefaultAvatar from "public/images/default-avatar.svg";
 import Logo from "public/images/logo.svg";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import propTypes from "prop-types";
 
 export default function Header({ onLight }) {
+  const [User, setUser] = useState(() => null);
+  useEffect(() => {
+    const userCookies =
+      decodeURIComponent(window.document.cookie)
+        ?.split(";")
+        ?.find?.((item) => item.indexOf("ESPLOOR:user") > -1)
+        ?.split("=")[1] ?? null;
+    setUser(userCookies ? JSON.parse(userCookies) : null);
+    console.log(userCookies);
+  }, []);
+
   const linkColor = onLight ? "text-gray-900" : "text-white";
   const router = useRouter();
   const linkCTA =
@@ -17,7 +29,7 @@ export default function Header({ onLight }) {
       <div style={{ height: 50 }}>
         <Logo className="on-dark"></Logo>
       </div>
-      <ul className="flex">
+      <ul className="flex items-center">
         <li>
           <Link href="/">
             <a
@@ -31,18 +43,18 @@ export default function Header({ onLight }) {
           </Link>
         </li>
         <li>
-          <Link href="/">
+          <Link href="/courses">
             <a
               className={[
                 linkColor,
                 "text-white hover:text-teal-500 text-lg px-6 py-3 font-medium",
               ].join(" ")}
             >
-              Pricing
+              Courses
             </a>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/">
             <a
               className={[
@@ -65,9 +77,31 @@ export default function Header({ onLight }) {
               Story
             </a>
           </Link>
-        </li>
+        </li> */}
         <li>
-          <Link href="/">
+          {User ? (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={linkCTA}
+              className="hover:bg-indigo-800 transition-all duration-200 text-white hover:text-teal-500 text-lg px-6 py-3 font-medium ml-6 inline-flex items-center"
+            >
+              <span className="rounded-full overflow-hidden mr-3 border-2 border-orange-500">
+                {User?.thumbnail ? (
+                  <img
+                    src={User?.thumbnail}
+                    alt={User?.name ?? "Username"}
+                    className="object-cover w-8 h-8 inline-block"
+                  />
+                ) : (
+                  <DefaultAvatar className="fill-indigo-500 w-8 h-8 inline-block">
+                    {" "}
+                  </DefaultAvatar>
+                )}
+              </span>
+              Hi, {User?.name}
+            </a>
+          ) : (
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -76,7 +110,7 @@ export default function Header({ onLight }) {
             >
               {textCTA}
             </a>
-          </Link>
+          )}
         </li>
       </ul>
     </header>
